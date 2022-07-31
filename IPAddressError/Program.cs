@@ -35,7 +35,8 @@ try
         .Select(x => EF.Functions.Network(EF.Functions.SetMaskLength(x.IpAddress, subnet)));
 
     var count = await queryable
-        .Join(queryable, x => x, x => x, (tuple, valueTuple) => tuple)
+        .Where(x=>queryable.Contains(x))
+        // .Join(queryable, x => x, x => x, (tuple, valueTuple) => tuple)
         .ToListAsync();
         
     Console.WriteLine(count);
